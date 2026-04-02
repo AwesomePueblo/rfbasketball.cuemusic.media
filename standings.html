@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>RF Basketball – Standings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main>
+    <header>
+      <span class="eyebrow">Spring 2026 · Tuesdays</span>
+      <h1>Remnant Fellowship Basketball</h1>
+      <p class="subtitle">March 31 – May 26, 2026</p>
+    </header>
+
+    <nav>
+      <a href="index.html">Teams</a>
+      <a href="rules.html">Rules &amp; Schedule</a>
+      <a href="standings.html" class="active">Standings</a>
+    </nav>
+
+    <!-- Points Leaderboard -->
+    <section>
+      <div class="card">
+        <p class="section-label">Points Leaderboard</p>
+        <div class="points-grid">
+
+          <div class="points-card rank-1">
+            <p class="points-rank">1st</p>
+            <p class="points-team">Team 1</p>
+            <p class="points-value">3</p>
+            <p class="points-label">pts</p>
+          </div>
+
+          <div class="points-card rank-1">
+            <p class="points-rank">1st</p>
+            <p class="points-team">Team 5</p>
+            <p class="points-value">3</p>
+            <p class="points-label">pts</p>
+          </div>
+
+          <div class="points-card">
+            <p class="points-rank">3rd</p>
+            <p class="points-team">Team 4</p>
+            <p class="points-value">2</p>
+            <p class="points-label">pts</p>
+          </div>
+
+          <div class="points-card">
+            <p class="points-rank">4th</p>
+            <p class="points-team">Team 3</p>
+            <p class="points-value">1</p>
+            <p class="points-label">pts</p>
+          </div>
+
+          <div class="points-card">
+            <p class="points-rank">5th</p>
+            <p class="points-team">Team 2</p>
+            <p class="points-value">0</p>
+            <p class="points-label">pts</p>
+          </div>
+
+          <div class="points-card">
+            <p class="points-rank">5th</p>
+            <p class="points-team">Team 6</p>
+            <p class="points-value">0</p>
+            <p class="points-label">pts</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Head-to-Head Matrix -->
+    <section>
+      <div class="card">
+        <p class="section-label">Head-to-Head Results</p>
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.25rem; line-height:1.5;">
+          Each cell shows the row team's result against the column team. Score reflects individual games won per match (max 3).
+        </p>
+        <div class="matrix-wrapper">
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>T1</th>
+                <th>T2</th>
+                <th>T3</th>
+                <th>T4</th>
+                <th>T5</th>
+                <th>T6</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Team 1</td>
+                <td class="cell-self">&mdash;</td>
+                <td class="cell-win"><span class="score-pill win">W 3&ndash;0</span></td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+              </tr>
+              <tr>
+                <td>Team 2</td>
+                <td class="cell-loss"><span class="score-pill loss">L 0&ndash;3</span></td>
+                <td class="cell-self">&mdash;</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+              </tr>
+              <tr>
+                <td>Team 3</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-self">&mdash;</td>
+                <td class="cell-loss"><span class="score-pill loss">L 1&ndash;2</span></td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+              </tr>
+              <tr>
+                <td>Team 4</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-win"><span class="score-pill win">W 2&ndash;1</span></td>
+                <td class="cell-self">&mdash;</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+              </tr>
+              <tr>
+                <td>Team 5</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-self">&mdash;</td>
+                <td class="cell-win"><span class="score-pill win">W 3&ndash;0</span></td>
+              </tr>
+              <tr>
+                <td>Team 6</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-tbd">TBD</td>
+                <td class="cell-loss"><span class="score-pill loss">L 0&ndash;3</span></td>
+                <td class="cell-self">&mdash;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <footer>Remnant Fellowship Basketball League &middot; Spring 2026</footer>
+  </main>
+</body>
+</html>
