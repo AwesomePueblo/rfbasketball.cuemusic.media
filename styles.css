@@ -503,6 +503,7 @@ section {
   font-weight: 500;
   font-family: var(--matrix-cell-font);
   font-variant-numeric: tabular-nums;
+  color: var(--primary-light);
 }
 
 .matrix-table td:first-child {
