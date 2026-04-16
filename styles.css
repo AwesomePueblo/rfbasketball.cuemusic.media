@@ -20,6 +20,8 @@
 
   --shadow-card:    0 10px 30px rgba(0, 0, 0, 0.6);
   --shadow-glow:    0 0 40px rgba(34, 197, 94, 0.25);
+  --matrix-label-font: 'Barlow Condensed', sans-serif;
+  --matrix-cell-font: 'Inter', sans-serif;
 }
 
 /* ─── Reset & Base ──────────────────────────────────────────────── */
@@ -499,11 +501,15 @@ section {
   padding: 0.6rem 0.7rem;
   border-bottom: 1px solid var(--border);
   font-weight: 500;
+  font-family: var(--matrix-cell-font);
+  font-variant-numeric: tabular-nums;
 }
 
 .matrix-table td:first-child {
   text-align: left;
-  font-weight: 600;
+  font-family: var(--matrix-label-font, 'Barlow Condensed', sans-serif);
+  font-weight: 700;
+  letter-spacing: 0.06em; /* slightly more scoreboard feel */
   padding-left: 0.5rem;
   white-space: nowrap;
 }
