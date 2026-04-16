@@ -24,7 +24,7 @@
 
     <div class="teams-grid">
 
-      <div class="team-card">
+      <div class="team-card" id="team-1">
         <h2>Team 1</h2>
         <ul>
           <li>Camren McNeal</li>
@@ -34,7 +34,7 @@
         </ul>
       </div>
 
-      <div class="team-card">
+      <div class="team-card" id="team-2">
         <h2>Team 2</h2>
         <ul>
           <li>Joel Fischer</li>
@@ -44,7 +44,7 @@
         </ul>
       </div>
 
-      <div class="team-card">
+      <div class="team-card" id="team-3">
         <h2>Team 3</h2>
         <ul>
           <li>Aiden Martin</li>
@@ -55,7 +55,7 @@
         </ul>
       </div>
 
-      <div class="team-card">
+      <div class="team-card" id="team-4">
         <h2>Team 4</h2>
         <ul>
           <li>Jay Chauff</li>
@@ -65,7 +65,7 @@
         </ul>
       </div>
 
-      <div class="team-card">
+      <div class="team-card" id="team-5">
         <h2>Team 5</h2>
         <ul>
           <li>Asher Hahn</li>
@@ -76,7 +76,7 @@
         </ul>
       </div>
 
-      <div class="team-card">
+      <div class="team-card" id="team-6">
         <h2>Team 6</h2>
         <ul>
           <li>Xavier Sims</li>
@@ -91,5 +91,16 @@
 
     <footer>Remnant Fellowship Basketball League &middot; Spring 2026</footer>
   </main>
+  <script>
+  const params = new URLSearchParams(window.location.search);
+  const team = params.get('team');
+
+  if (team) {
+    const el = document.getElementById(`team-${team}`);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+</script>
 </body>
 </html>
