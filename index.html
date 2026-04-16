@@ -91,13 +91,14 @@
 
     <footer>Remnant Fellowship Basketball League &middot; Spring 2026</footer>
   </main>
-  <script>
+<script>
   const params = new URLSearchParams(window.location.search);
   const team = params.get('team');
 
   if (team) {
     const el = document.getElementById(`team-${team}`);
     if (el) {
+      el.classList.add('active');
       el.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
