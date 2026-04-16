@@ -2,27 +2,28 @@
 
 /* ─── Design Tokens ─────────────────────────────────────────────── */
 :root {
-  --primary:        #2dd16f;
+  --primary:        #22c55e;
   --primary-light:  #4ade80;
-  --primary-dark:   #15803d;
+  --primary-dark:   #166534;
+
   --accent:         #facc15;
 
-  --bg-base:       #22c55e;
-  --bg-card:       rgba(255, 255, 255, 0.05);
-  --bg-card-hover: rgba(255, 255, 255, 0.08);
+  --bg-base:        #f3fdf6;            /* very light green tint */
+  --bg-card:        rgba(255, 255, 255, 0.85);
+  --bg-card-hover:  rgba(255, 255, 255, 0.95);
 
-  --border:        rgba(15, 23, 42, 0.08);
-  --border-accent: rgba(34, 197, 94, 0.4);
+  --border:         rgba(15, 23, 42, 0.08);
+  --border-accent:  rgba(34, 197, 94, 0.35);
 
-  --text:          #0f172a;
-  --text-muted:    rgba(15, 23, 42, 0.55);
+  --text:           #064e3b;            /* deep green for harmony */
+  --text-muted:     rgba(6, 78, 59, 0.55);
 
-  --radius-card:   20px;
-  --radius-pill:   999px;
-  --blur:          blur(16px);
+  --radius-card:    20px;
+  --radius-pill:    999px;
+  --blur:           blur(16px);
 
-  --shadow-card:   0 8px 32px rgba(0, 0, 0, 0.15);
-  --shadow-glow:   0 0 40px rgba(34, 197, 94, 0.18);
+  --shadow-card:    0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-glow:    0 0 30px rgba(34, 197, 94, 0.15);
 }
 
 /* ─── Reset & Base ──────────────────────────────────────────────── */
