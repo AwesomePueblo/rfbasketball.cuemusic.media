@@ -470,6 +470,21 @@ section {
   margin-top: 0.2rem;
 }
 
+.points-link {
+  text-decoration: none;
+  display: block;
+}
+
+.points-card {
+  cursor: pointer;
+}
+
+.points-link:hover .points-card {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card), var(--shadow-glow);
+  border-color: var(--border-accent);
+}
+
 /* ─── Matrix Table ──────────────────────────────────────────────── */
 .matrix-wrapper {
   overflow-x: auto;
