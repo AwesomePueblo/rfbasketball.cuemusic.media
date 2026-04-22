@@ -123,11 +123,12 @@
 
   function renderLeaderboard(pts) {
     const sorted = Object.keys(pts).map(Number).sort((a, b) => pts[b] - pts[a] || a - b);
+    const maxPts = pts[sorted[0]];
     document.getElementById('points-grid').innerHTML = sorted.map((team, i) => {
       const rank = i + 1;
       return `
         <a href="index.html?team=${team}" class="points-link">
-          <div class="points-card${rank <= 2 ? ' rank-1' : ''}">
+          <div class="points-card${pts[team] === maxPts ? ' rank-1' : ''}">
             <p class="points-rank">${ordinal(rank)}</p>
             <p class="points-team">Team ${team}</p>
             <p class="points-value">${pts[team]}</p>
