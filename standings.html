@@ -25,62 +25,8 @@
     <section>
       <div class="card">
         <p class="section-label">Points Leaderboard</p>
-        <div class="points-grid">
-
-          <a href="index.html?team=5" class="points-link">
-          <div class="points-card rank-1">
-            <p class="points-rank">1st</p>
-            <p class="points-team">Team 5</p>
-            <p class="points-value">8</p>
-            <p class="points-label">pts</p>
-          </div>
-            </a>
-
-          <a href="index.html?team=4" class="points-link">
-            <div class="points-card rank-1">
-            <p class="points-rank">2nd</p>
-            <p class="points-team">Team 4</p>
-            <p class="points-value">8</p>
-            <p class="points-label">pts</p>
-          </div>
-          </a>
-
-          <a href="index.html?team=2" class="points-link">
-          <div class="points-card">
-            <p class="points-rank">3rd</p>
-            <p class="points-team">Team 2</p>
-            <p class="points-value">3</p>
-            <p class="points-label">pts</p>
-          </div>
-            </a>
-
-          <a href="index.html?team=6" class="points-link">
-            <div class="points-card">
-            <p class="points-rank">4th</p>
-            <p class="points-team">Team 6</p>
-            <p class="points-value">3</p>
-            <p class="points-label">pts</p>
-          </div>
-            </a>
-
-          <a href="index.html?team=1" class="points-link">
-            <div class="points-card">
-            <p class="points-rank">5th</p>
-            <p class="points-team">Team 1</p>
-            <p class="points-value">3</p>
-            <p class="points-label">pts</p>
-          </div>
-            </a>
-
-          <a href="index.html?team=3" class="points-link">
-            <div class="points-card">
-            <p class="points-rank">6th</p>
-            <p class="points-team">Team 3</p>
-            <p class="points-value">1</p>
-            <p class="points-label">pts</p>
-          </div>
-            </a>
-
+        <div class="points-grid" id="points-grid">
+          <p style="color:var(--text-muted);grid-column:1/-1;padding:1rem 0;">Loading standings…</p>
         </div>
       </div>
     </section>
@@ -90,7 +36,7 @@
       <div class="card">
         <p class="section-label">Head-to-Head Results</p>
         <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.25rem; line-height:1.5;">
-          Each cell shows the row team's result against the column team. Score reflects individual games won per match (max 3).
+          Each cell shows the row team's result against the column team. Score reflects total individual games won across all matchups this season.
         </p>
         <div class="matrix-wrapper">
           <table class="matrix-table">
@@ -105,77 +51,136 @@
                 <th>T6</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="matrix-body">
               <tr>
-                <td>Team 1</td>
-                <td class="cell-self">&mdash;</td>
-                <td class="cell-win"><span class="score-pill win">W 3&ndash;0</span></td>
-                <td class="cell-tbd">TBD</td>
-                <td class="cell-loss"><span class="score-pill loss">L 0&ndash;3</span></td>
-                <td class="cell-loss"><span class="score-pill loss">L 0&ndash;3</span></td>
-                <td class="cell-tbd">TBD</td>
+                <td colspan="7" style="text-align:center;color:var(--text-muted);padding:1.5rem;">Loading…</td>
               </tr>
-
-              <tr>
-                <td>Team 2</td>
-                <td class="cell-loss"><span class="score-pill loss">L 0&ndash;3</span></td>
-                <td class="cell-self">&mdash;</td>
-                <td class="cell-tbd">TBD</td>
-                <td class="cell-tbd">TBD</td>
-                <td class="cell-loss"><span class="score-pill loss">L 1&ndash;2</span></td>
-                <td class="cell-win"><span class="score-pill win">W 2&ndash;0</span></td>
-              </tr>
-
-              <tr>
-                <td>Team 3</td>
-                <td class="cell-tbd">TBD</td>
-                <td class="cell-tbd">TBD</td>
-                <td class="cell-self">&mdash;</td>
-                <td class="cell-loss"><span class="score-pill loss">L 1&ndash;5</span></td>
-                <td class="cell-tbd">TBD</td>
-                <td class="cell-loss"><span class="score-pill loss">L 0&ndash;3</span></td>
-              </tr>
-
-              <tr>
-                <td>Team 4</td>
-                <td class="cell-win"><span class="score-pill win">W 3&ndash;0</span></td>
-                <td class="cell-tbd">TBD</td>
-                <td class="cell-win"><span class="score-pill win">W 5&ndash;1</span></td>
-                <td class="cell-self">&mdash;</td>
-                <td class="cell-tbd">TBD</td>
-                <td class="cell-tbd">TBD</td>
-              </tr>
-
-              <tr>
-                <td>Team 5</td>
-                <td class="cell-win"><span class="score-pill win">W 3&ndash;0</span></td>
-                <td class="cell-win"><span class="score-pill win">W 2&ndash;1</span></td>
-                <td class="cell-tbd">TBD</td>
-                <td class="cell-tbd">TBD</td>
-                <td class="cell-self">&mdash;</td>
-                <td class="cell-win"><span class="score-pill win">W 3&ndash;0</span></td>
-              </tr>
-
-              <tr>
-                <td>Team 6</td>
-                <td class="cell-tbd">TBD</td>
-                <td class="cell-loss"><span class="score-pill loss">L 0&ndash;2</span></td>
-                <td class="cell-win"><span class="score-pill win">W 3&ndash;0</span></td>
-                <td class="cell-tbd">TBD</td>
-                <td class="cell-loss"><span class="score-pill loss">L 0&ndash;3</span></td>
-                <td class="cell-self">&mdash;</td>
-              </tr>
-
             </tbody>
           </table>
         </div>
       </div>
     </section>
 
-  <footer>
-  Remnant Fellowship Basketball League &middot; Spring 2026 · 
-  Last updated on Apr 15, 2026 5:42 PM
-</footer>
+    <footer>
+      Remnant Fellowship Basketball League &middot; Spring 2026 &middot;
+      <span id="last-updated"></span>
+    </footer>
   </main>
+<script>
+  const GAMES_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTa_fazSKi7Iz3HCDE1VOgks8wel2sWC1ZLbzTw9crZFTTcaPZ1SkqiWswxX-ZzK0b1Za8xh9okRYq5/pub?gid=2135617993&single=true&output=csv';
+  const NUM_TEAMS = 6;
+
+  function parseCSV(text) {
+    const [headerLine, ...rows] = text.trim().split('\n');
+    const headers = headerLine.split(',').map(h => h.trim());
+    return rows.map(row => {
+      const values = row.split(',').map(v => v.trim());
+      return Object.fromEntries(headers.map((h, i) => [h, values[i] ?? '']));
+    });
+  }
+
+  function completedGames(games) {
+    return games.filter(g => g['Team A Wins'] !== '' && !isNaN(parseInt(g['Team A'])));
+  }
+
+  function calcPoints(games) {
+    const pts = {};
+    for (let i = 1; i <= NUM_TEAMS; i++) pts[i] = 0;
+    completedGames(games).forEach(g => {
+      const a = parseInt(g['Team A']);
+      const b = parseInt(g['Team B']);
+      pts[a] += parseInt(g['Team A Wins']);
+      pts[b] += parseInt(g['Team B Wins']);
+    });
+    return pts;
+  }
+
+  function calcH2H(games) {
+    const h2h = {};
+    for (let i = 1; i <= NUM_TEAMS; i++) h2h[i] = {};
+    completedGames(games).forEach(g => {
+      const a = parseInt(g['Team A']);
+      const b = parseInt(g['Team B']);
+      const wa = parseInt(g['Team A Wins']);
+      const wb = parseInt(g['Team B Wins']);
+      if (!h2h[a][b]) h2h[a][b] = { myWins: 0, theirWins: 0 };
+      if (!h2h[b][a]) h2h[b][a] = { myWins: 0, theirWins: 0 };
+      h2h[a][b].myWins += wa;
+      h2h[a][b].theirWins += wb;
+      h2h[b][a].myWins += wb;
+      h2h[b][a].theirWins += wa;
+    });
+    return h2h;
+  }
+
+  function ordinal(n) {
+    const s = ['th', 'st', 'nd', 'rd'];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  function renderLeaderboard(pts) {
+    const sorted = Object.keys(pts).map(Number).sort((a, b) => pts[b] - pts[a] || a - b);
+    document.getElementById('points-grid').innerHTML = sorted.map((team, i) => {
+      const rank = i + 1;
+      return `
+        <a href="index.html?team=${team}" class="points-link">
+          <div class="points-card${rank <= 2 ? ' rank-1' : ''}">
+            <p class="points-rank">${ordinal(rank)}</p>
+            <p class="points-team">Team ${team}</p>
+            <p class="points-value">${pts[team]}</p>
+            <p class="points-label">pts</p>
+          </div>
+        </a>`;
+    }).join('');
+  }
+
+  function matrixCell(row, col, h2h) {
+    if (row === col) return `<td class="cell-self">&mdash;</td>`;
+    const result = h2h[row]?.[col];
+    if (!result) return `<td class="cell-tbd">TBD</td>`;
+    const { myWins, theirWins } = result;
+    if (myWins > theirWins) {
+      return `<td class="cell-win"><span class="score-pill win">W&nbsp;${myWins}&ndash;${theirWins}</span></td>`;
+    }
+    if (myWins < theirWins) {
+      return `<td class="cell-loss"><span class="score-pill loss">L&nbsp;${myWins}&ndash;${theirWins}</span></td>`;
+    }
+    return `<td class="cell-tbd">${myWins}&ndash;${theirWins}</td>`;
+  }
+
+  function renderMatrix(h2h) {
+    const teams = Array.from({ length: NUM_TEAMS }, (_, i) => i + 1);
+    document.getElementById('matrix-body').innerHTML = teams.map(row =>
+      `<tr><td>Team ${row}</td>${teams.map(col => matrixCell(row, col, h2h)).join('')}</tr>`
+    ).join('');
+  }
+
+  function getLastUpdated(games) {
+    const done = completedGames(games);
+    if (!done.length) return '';
+    const last = done[done.length - 1];
+    return new Date(last['Date']).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  async function loadStandings() {
+    try {
+      const res = await fetch(GAMES_CSV);
+      const text = await res.text();
+      const games = parseCSV(text);
+      renderLeaderboard(calcPoints(games));
+      renderMatrix(calcH2H(games));
+      const updated = getLastUpdated(games);
+      if (updated) {
+        document.getElementById('last-updated').textContent = `Live from Google Sheets · ${updated}`;
+      }
+    } catch {
+      document.getElementById('points-grid').innerHTML =
+        '<p style="color:#f87171;grid-column:1/-1;padding:1rem;">Failed to load standings. Please try again.</p>';
+    }
+  }
+
+  loadStandings();
+</script>
 </body>
 </html>

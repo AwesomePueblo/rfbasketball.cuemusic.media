@@ -22,86 +22,69 @@
       <a href="standings.html">Standings</a>
     </nav>
 
-    <div class="teams-grid">
-
-      <div class="team-card" id="team-1">
-        <h2>Team 1</h2>
-        <ul>
-          <li>Camren McNeal</li>
-          <li>Luke Higgins</li>
-          <li>Harrison Moore</li>
-          <li>Durville Patton</li>
-        </ul>
-      </div>
-
-      <div class="team-card" id="team-2">
-        <h2>Team 2</h2>
-        <ul>
-          <li>Joel Fischer</li>
-          <li>Max Petralito</li>
-          <li>Seth Duncan</li>
-          <li>Teagan Shelhamer</li>
-        </ul>
-      </div>
-
-      <div class="team-card" id="team-3">
-        <h2>Team 3</h2>
-        <ul>
-          <li>Aiden Martin</li>
-          <li>Jojo Cormier</li>
-          <li>Zachary McDonald</li>
-          <li>Jeff Swindell</li>
-          <li>Gary Hahn</li>
-        </ul>
-      </div>
-
-      <div class="team-card" id="team-4">
-        <h2>Team 4</h2>
-        <ul>
-          <li>Jay Chauff</li>
-          <li>Lane Shepherd</li>
-          <li>Kevin Spencer</li>
-          <li>Mason McDonald</li>
-        </ul>
-      </div>
-
-      <div class="team-card" id="team-5">
-        <h2>Team 5</h2>
-        <ul>
-          <li>Asher Hahn</li>
-          <li>William Walters</li>
-          <li>Hudson Barnhart</li>
-          <li>Bradyn Herbst</li>
-          <li>Elias Pacheco</li>
-        </ul>
-      </div>
-
-      <div class="team-card" id="team-6">
-        <h2>Team 6</h2>
-        <ul>
-          <li>Xavier Sims</li>
-          <li>Derrick Jones</li>
-          <li>Carson Inskeep</li>
-          <li>Timothy Fischer</li>
-          <li>Patrick Stites</li>
-        </ul>
-      </div>
-
+    <div class="teams-grid" id="teams-grid">
+      <p style="color:var(--text-muted);text-align:center;padding:2rem;grid-column:1/-1;">Loading teams…</p>
     </div>
 
     <footer>Remnant Fellowship Basketball League &middot; Spring 2026</footer>
   </main>
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const team = params.get('team');
+  const TEAMS_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTa_fazSKi7Iz3HCDE1VOgks8wel2sWC1ZLbzTw9crZFTTcaPZ1SkqiWswxX-ZzK0b1Za8xh9okRYq5/pub?output=csv';
 
-  if (team) {
-    const el = document.getElementById(`team-${team}`);
-    if (el) {
-      el.classList.add('active');
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  function parseCSV(text) {
+    const [headerLine, ...rows] = text.trim().split('\n');
+    const headers = headerLine.split(',').map(h => h.trim());
+    return rows.map(row => {
+      const values = row.split(',').map(v => v.trim());
+      return Object.fromEntries(headers.map((h, i) => [h, values[i] ?? '']));
+    });
+  }
+
+  function groupByTeam(rows) {
+    const teams = {};
+    rows.forEach(row => {
+      const num = row['Team Number'];
+      if (!teams[num]) teams[num] = [];
+      teams[num].push(row['Player Names']);
+    });
+    return teams;
+  }
+
+  function renderTeams(teams) {
+    const params = new URLSearchParams(window.location.search);
+    const activeTeam = params.get('team');
+
+    const html = Object.keys(teams)
+      .sort((a, b) => Number(a) - Number(b))
+      .map(num => `
+        <div class="team-card${activeTeam === num ? ' active' : ''}" id="team-${num}">
+          <h2>Team ${num}</h2>
+          <ul>
+            ${teams[num].map(p => `<li>${p}</li>`).join('')}
+          </ul>
+        </div>`)
+      .join('');
+
+    document.getElementById('teams-grid').innerHTML = html;
+
+    if (activeTeam) {
+      const el = document.getElementById(`team-${activeTeam}`);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
+
+  async function loadTeams() {
+    try {
+      const res = await fetch(TEAMS_CSV);
+      const text = await res.text();
+      renderTeams(groupByTeam(parseCSV(text)));
+    } catch {
+      document.getElementById('teams-grid').innerHTML =
+        '<p style="color:#f87171;text-align:center;grid-column:1/-1;padding:2rem;">Failed to load team data. Please try again.</p>';
+    }
+  }
+
+  loadTeams();
 </script>
 </body>
 </html>
