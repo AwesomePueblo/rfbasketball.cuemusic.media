@@ -17,8 +17,9 @@ chat). There is no other database.
   - Matchup not yet decided: `teamA` and `teamB` are `null`.
   - Keep one game per line and the list in date/time order.
 
-Standings (points = total wins, head-to-head matrix) are computed in the
-browser by `standings.html`; never store totals.
+Standings (points = total wins, match record, head-to-head) are computed in
+the browser by `league.js`, which every data page loads; never store totals.
+The schedule on `rules.html` is also generated from `data/games.json`.
 
 ### Recording results from chat
 
@@ -30,4 +31,8 @@ When told something like "Team 3 beat Team 5 2 to 1 tonight":
 4. Commit with a message like `Record 05/19: Team 3 2-1 Team 5` and push to
    `main`. Tell the user the new point totals.
 
-If `NUM_TEAMS` changes, update it in `standings.html`.
+## Design
+
+`styles.css` holds all styling; `theme.js` swaps the five color themes by
+setting `--primary*`, `--accent` and the `*-rgb` variables. Each page repeats
+the same top bar and footer markup (no build step), so keep them in sync.

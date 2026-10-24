@@ -2,61 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>RF Basketball – Feedback</title>
+  <title>Feedback · RF Basketball</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Share feedback and ideas for the Remnant Fellowship Basketball League." />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="/assets/images/favicon.ico">
-  <style>
-    .feedback-wrapper {
-      display: flex;
-      justify-content: center;
-    }
-
-    .feedback-wrapper iframe {
-      width: 100%;
-      max-width: 640px;
-      min-height: 520px;
-      border: none;
-      border-radius: 12px;
-    }
-  </style>
 </head>
 <body>
-  <main>
-    <header>
-      <span class="eyebrow">Spring 2026 · Tuesdays</span>
-      <h1>Remnant Fellowship Basketball</h1>
-      <p class="subtitle">March 31 – May 26, 2026</p>
-    </header>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">RFB</span>
+        <span class="brand-name">Remnant Fellowship<small>Basketball League</small></span>
+      </a>
+      <nav class="tabs" aria-label="Main">
+        <a href="index.html">Teams</a>
+        <a href="standings.html">Standings</a>
+        <a href="rules.html">Schedule<span class="long"> &amp; Rules</span></a>
+        <a href="feedback.html" aria-current="page">Feedback</a>
+      </nav>
+    </div>
+  </header>
 
-    <nav>
-      <a href="index.html">Teams</a>
-      <a href="rules.html">Rules &amp; Schedule</a>
-      <a href="standings.html">Standings</a>
-      <span class="nav-break"></span>
-      <a href="feedback.html" class="active">Feedback</a>
-    </nav>
-
-    <section>
-      <div class="card">
-        <p class="section-label">Share Your Feedback</p>
-        <div class="feedback-wrapper">
-          <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSdt7k_Hysk5aLP7TDP_mdPAn8jBSfSUnTsK_eyfnLsiM-9xsQ/viewform?embedded=true"
-            frameborder="0"
-            marginheight="0"
-            marginwidth="0">
-            Loading…
-          </iframe>
-        </div>
-      </div>
+  <main class="wrap">
+    <section class="hero">
+      <span class="chip"><span class="dot"></span>We're listening</span>
+      <h1>Feed<span class="outline">back</span></h1>
+      <p>Ideas for the league, the site, or next season? Let us know below.</p>
     </section>
 
-    <footer>
-      Remnant Fellowship Basketball League &middot; Spring 2026
-      <div class="theme-bar" id="theme-bar"></div>
-    </footer>
+    <section class="section">
+      <div class="card form-card">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSdt7k_Hysk5aLP7TDP_mdPAn8jBSfSUnTsK_eyfnLsiM-9xsQ/viewform?embedded=true"
+          title="League feedback form"
+          loading="lazy">Loading…</iframe>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Remnant Fellowship Basketball League &middot; Spring 2026</span>
+      <div class="theme-bar" id="theme-bar"></div>
+    </div>
+  </footer>
+
 <script src="theme.js"></script>
 </body>
 </html>

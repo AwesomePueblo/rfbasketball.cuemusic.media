@@ -2,179 +2,152 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>RF Basketball – Standings</title>
+  <title>Standings · RF Basketball</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Standings and head-to-head results for the Remnant Fellowship Basketball League." />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="/assets/images/favicon.ico">
 </head>
 <body>
-  <main>
-    <header>
-      <span class="eyebrow">Spring 2026 · Tuesdays</span>
-      <h1>Remnant Fellowship Basketball</h1>
-      <p class="subtitle">March 31 – May 26, 2026</p>
-    </header>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">RFB</span>
+        <span class="brand-name">Remnant Fellowship<small>Basketball League</small></span>
+      </a>
+      <nav class="tabs" aria-label="Main">
+        <a href="index.html">Teams</a>
+        <a href="standings.html" aria-current="page">Standings</a>
+        <a href="rules.html">Schedule<span class="long"> &amp; Rules</span></a>
+        <a href="feedback.html">Feedback</a>
+      </nav>
+    </div>
+  </header>
 
-    <nav>
-      <a href="index.html">Teams</a>
-      <a href="rules.html">Rules &amp; Schedule</a>
-      <a href="standings.html" class="active">Standings</a>
-      <span class="nav-break"></span>
-      <a href="feedback.html">Feedback</a>
-    </nav>
+  <main class="wrap">
+    <section class="hero">
+      <span class="chip"><span class="dot"></span>Spring 2026 &middot; Final</span>
+      <h1>Stand<span class="outline">ings</span></h1>
+      <p>Every game won is worth one point. Points decide the playoff bracket.</p>
+    </section>
 
-    <!-- Points Leaderboard -->
-    <section>
-      <div class="card">
-        <p class="section-label">Points Leaderboard</p>
-        <div class="points-grid" id="points-grid">
-          <p style="color:var(--text-muted);grid-column:1/-1;padding:1rem 0;">Loading standings…</p>
-        </div>
+    <section class="section">
+      <div class="spotlight" id="spotlight"></div>
+      <div class="table-wrap">
+        <table class="standings-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Team</th>
+              <th>Points</th>
+              <th class="c hide-sm">Matches</th>
+              <th class="c">W–L–T</th>
+              <th>Last 3</th>
+            </tr>
+          </thead>
+          <tbody id="table">
+            <tr><td colspan="6" class="status">Loading standings…</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
-    <!-- Head-to-Head Matrix -->
-    <section>
-      <div class="card">
-        <p class="section-label">Head-to-Head Results</p>
-        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.25rem; line-height:1.5;">
-          Each cell shows the row team's result against the column team. Score reflects total individual games won across all matchups this season.
-        </p>
-        <div class="matrix-wrapper">
-          <table class="matrix-table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>T1</th>
-                <th>T2</th>
-                <th>T3</th>
-                <th>T4</th>
-                <th>T5</th>
-                <th>T6</th>
-              </tr>
-            </thead>
-            <tbody id="matrix-body">
-              <tr>
-                <td colspan="7" style="text-align:center;color:var(--text-muted);padding:1.5rem;">Loading…</td>
-              </tr>
-            </tbody>
-          </table>
+    <section class="section">
+      <div class="section-head">
+        <h2>Head to Head</h2>
+        <p>Row team's games won vs. column team, all meetings combined</p>
+      </div>
+      <div class="card matrix-wrap">
+        <table class="matrix">
+          <thead id="matrix-head"></thead>
+          <tbody id="matrix-body"></tbody>
+        </table>
+        <div class="legend">
+          <span><i style="background:rgba(74,222,128,.35)"></i>Won the series</span>
+          <span><i style="background:rgba(248,113,113,.3)"></i>Lost the series</span>
+          <span><i style="background:rgba(255,255,255,.12)"></i>Tied or not played</span>
         </div>
       </div>
     </section>
-
-    <footer>
-      Remnant Fellowship Basketball League &middot; Spring 2026 &middot;
-      <span id="last-updated"></span>
-      <div class="theme-bar" id="theme-bar"></div>
-    </footer>
   </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span id="updated">Remnant Fellowship Basketball League &middot; Spring 2026</span>
+      <div class="theme-bar" id="theme-bar"></div>
+    </div>
+  </footer>
+
 <script src="theme.js"></script>
+<script src="league.js"></script>
 <script>
-  const GAMES_JSON = 'data/games.json';
-  const NUM_TEAMS = 6;
+  function renderSpotlight(table, games) {
+    const played = games.filter(isPlayed);
+    const [first, second] = table;
+    const leaders = table.filter(r => r.rank === 1);
+    const gamesWon = played.reduce((n, g) => n + g.winsA + g.winsB, 0);
+    const sweeps = played.filter(g => Math.min(g.winsA, g.winsB) === 0).length;
+    const lead = second ? first.pts - second.pts : 0;
 
-  function completedGames(games) {
-    return games.filter(g => g.winsA != null && g.winsB != null && g.teamA != null && g.teamB != null);
+    document.getElementById('spotlight').innerHTML = `
+      <a class="spot-main" href="index.html?team=${first.team}">
+        <span class="spot-label">★ ${leaders.length > 1 ? 'Tied for first' : 'First place'}</span>
+        <span class="spot-team">${leaders.map(r => `Team ${r.team}`).join(' & ')}</span>
+        <span class="spot-pts"><strong class="num">${first.pts}</strong><span>points · ${first.w}–${first.l}${first.t ? `–${first.t}` : ''} in matches</span></span>
+      </a>
+      <div class="stat-tiles">
+        <div class="stat"><span>Matches played</span><strong class="num">${played.length}</strong></div>
+        <div class="stat"><span>Games played</span><strong class="num">${gamesWon}</strong></div>
+        <div class="stat"><span>Lead at the top</span><strong class="num">${lead} ${lead === 1 ? 'pt' : 'pts'}</strong></div>
+        <div class="stat"><span>Sweeps</span><strong class="num">${sweeps}</strong></div>
+      </div>`;
   }
 
-  function calcPoints(games) {
-    const pts = {};
-    for (let i = 1; i <= NUM_TEAMS; i++) pts[i] = 0;
-    completedGames(games).forEach(g => {
-      pts[g.teamA] += g.winsA;
-      pts[g.teamB] += g.winsB;
-    });
-    return pts;
+  function renderTable(table) {
+    const max = Math.max(1, ...table.map(r => r.pts));
+    document.getElementById('table').innerHTML = table.map(r => `
+      <tr class="${r.rank === 1 ? 'is-top' : ''}">
+        <td class="rank">${r.rank}</td>
+        <td><a class="team-link" href="index.html?team=${r.team}">Team ${r.team}</a></td>
+        <td><div class="pts-cell"><strong>${r.pts}</strong><span class="bar hide-sm"><i style="width:${(r.pts / max) * 100}%"></i></span></div></td>
+        <td class="c hide-sm">${r.played}</td>
+        <td class="c">${r.w}–${r.l}–${r.t}</td>
+        <td><span class="form">${r.form.slice(-3).map(f => `<b class="${f}">${f.toUpperCase()}</b>`).join('')}</span></td>
+      </tr>`).join('');
   }
 
-  function calcH2H(games) {
+  function renderMatrix(teams, games) {
+    const ids = teams.map(t => t.team).sort((a, b) => a - b);
     const h2h = {};
-    for (let i = 1; i <= NUM_TEAMS; i++) h2h[i] = {};
-    completedGames(games).forEach(g => {
-      const a = g.teamA;
-      const b = g.teamB;
-      const wa = g.winsA;
-      const wb = g.winsB;
-      if (!h2h[a][b]) h2h[a][b] = { myWins: 0, theirWins: 0 };
-      if (!h2h[b][a]) h2h[b][a] = { myWins: 0, theirWins: 0 };
-      h2h[a][b].myWins += wa;
-      h2h[a][b].theirWins += wb;
-      h2h[b][a].myWins += wb;
-      h2h[b][a].theirWins += wa;
+    games.filter(isPlayed).forEach(g => {
+      const ab = (h2h[`${g.teamA}-${g.teamB}`] ??= { mine: 0, theirs: 0 });
+      const ba = (h2h[`${g.teamB}-${g.teamA}`] ??= { mine: 0, theirs: 0 });
+      ab.mine += g.winsA; ab.theirs += g.winsB;
+      ba.mine += g.winsB; ba.theirs += g.winsA;
     });
-    return h2h;
+
+    document.getElementById('matrix-head').innerHTML =
+      `<tr><th></th>${ids.map(id => `<th>T${id}</th>`).join('')}</tr>`;
+    document.getElementById('matrix-body').innerHTML = ids.map(row => `
+      <tr><th scope="row">Team ${row}</th>${ids.map(col => {
+        if (row === col) return '<td class="self"></td>';
+        const r = h2h[`${row}-${col}`];
+        if (!r) return '<td>–</td>';
+        const cls = r.mine > r.theirs ? 'w' : r.mine < r.theirs ? 'l' : 't';
+        return `<td class="${cls}">${r.mine}–${r.theirs}</td>`;
+      }).join('')}</tr>`).join('');
   }
 
-  function ordinal(n) {
-    const s = ['th', 'st', 'nd', 'rd'];
-    const v = n % 100;
-    return n + (s[(v - 20) % 10] || s[v] || s[0]);
-  }
-
-  function renderLeaderboard(pts) {
-    const sorted = Object.keys(pts).map(Number).sort((a, b) => pts[b] - pts[a] || a - b);
-    const maxPts = pts[sorted[0]];
-    document.getElementById('points-grid').innerHTML = sorted.map((team, i) => {
-      const rank = i + 1;
-      return `
-        <a href="index.html?team=${team}" class="points-link">
-          <div class="points-card${pts[team] === maxPts ? ' rank-1' : ''}">
-            <p class="points-rank">${ordinal(rank)}</p>
-            <p class="points-team">Team ${team}</p>
-            <p class="points-value">${pts[team]}</p>
-            <p class="points-label">pts</p>
-          </div>
-        </a>`;
-    }).join('');
-  }
-
-  function matrixCell(row, col, h2h) {
-    if (row === col) return `<td class="cell-self">&mdash;</td>`;
-    const result = h2h[row]?.[col];
-    if (!result) return `<td class="cell-tbd">TBD</td>`;
-    const { myWins, theirWins } = result;
-    if (myWins > theirWins) {
-      return `<td class="cell-win"><span class="score-pill win">W&nbsp;${myWins}&ndash;${theirWins}</span></td>`;
+  loadLeague().then(({ teams, games, table }) => {
+    renderSpotlight(table, games);
+    renderTable(table);
+    renderMatrix(teams, games);
+    const last = games.filter(isPlayed).at(-1);
+    if (last) {
+      document.getElementById('updated').textContent =
+        `Remnant Fellowship Basketball League · Results through ${formatDate(last.date, { month: 'long', day: 'numeric', year: 'numeric' })}`;
     }
-    if (myWins < theirWins) {
-      return `<td class="cell-loss"><span class="score-pill loss">L&nbsp;${myWins}&ndash;${theirWins}</span></td>`;
-    }
-    return `<td class="cell-tbd">${myWins}&ndash;${theirWins}</td>`;
-  }
-
-  function renderMatrix(h2h) {
-    const teams = Array.from({ length: NUM_TEAMS }, (_, i) => i + 1);
-    document.getElementById('matrix-body').innerHTML = teams.map(row =>
-      `<tr><td>Team ${row}</td>${teams.map(col => matrixCell(row, col, h2h)).join('')}</tr>`
-    ).join('');
-  }
-
-  function getLastUpdated(games) {
-    const done = completedGames(games);
-    if (!done.length) return '';
-    const last = done[done.length - 1];
-    return new Date(`${last.date}T00:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-  }
-
-  async function loadStandings() {
-    try {
-      const res = await fetch(GAMES_JSON, { cache: 'no-cache' });
-      if (!res.ok) throw new Error(res.status);
-      const { games } = await res.json();
-      renderLeaderboard(calcPoints(games));
-      renderMatrix(calcH2H(games));
-      const updated = getLastUpdated(games);
-      if (updated) {
-        document.getElementById('last-updated').textContent = `Updated ${updated}`;
-      }
-    } catch {
-      document.getElementById('points-grid').innerHTML =
-        '<p style="color:#f87171;grid-column:1/-1;padding:1rem;">Failed to load standings. Please try again.</p>';
-    }
-  }
-
-  loadStandings();
+  }).catch(() => showError(document.getElementById('spotlight'), 'standings'));
 </script>
 </body>
 </html>

@@ -2,149 +2,138 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>RF Basketball – Rules &amp; Schedule</title>
+  <title>Schedule &amp; Rules · RF Basketball</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Season schedule, results, game format and rules for the Remnant Fellowship Basketball League." />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="/assets/images/favicon.ico">
 </head>
 <body>
-  <main>
-    <header>
-      <span class="eyebrow">Spring 2026 · Tuesdays</span>
-      <h1>Remnant Fellowship Basketball</h1>
-      <p class="subtitle">March 31 – May 26, 2026</p>
-    </header>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">RFB</span>
+        <span class="brand-name">Remnant Fellowship<small>Basketball League</small></span>
+      </a>
+      <nav class="tabs" aria-label="Main">
+        <a href="index.html">Teams</a>
+        <a href="standings.html">Standings</a>
+        <a href="rules.html" aria-current="page">Schedule<span class="long"> &amp; Rules</span></a>
+        <a href="feedback.html">Feedback</a>
+      </nav>
+    </div>
+  </header>
 
-    <nav>
-      <a href="index.html">Teams</a>
-      <a href="rules.html" class="active">Rules &amp; Schedule</a>
-      <a href="standings.html">Standings</a>
-      <span class="nav-break"></span>
-      <a href="feedback.html">Feedback</a>
-    </nav>
+  <main class="wrap">
+    <section class="hero">
+      <span class="chip"><span class="dot"></span>Spring 2026 &middot; Tuesdays</span>
+      <h1>Schedule <span class="outline">&amp; Rules</span></h1>
+      <p>Three matches a night at 6:30, 7:30 and 8:30 PM. Scores show games won in each match.</p>
+    </section>
 
-    <!-- Schedule -->
-    <section>
-      <div class="card">
-        <p class="section-label">Season Schedule</p>
-        <div class="schedule-wrapper">
-          <table class="schedule-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>6:30 PM</th>
-                <th>7:30 PM</th>
-                <th>8:30 PM</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="date-cell">Mar 31</td>
-                <td><span class="matchup">Team 1 <span class="vs">VS</span> Team 2</span></td>
-                <td><span class="matchup">Team 3 <span class="vs">VS</span> Team 4</span></td>
-                <td><span class="matchup">Team 5 <span class="vs">VS</span> Team 6</span></td>
-              </tr>
-              <tr>
-                <td class="date-cell">Apr 7</td>
-                <td><span class="matchup">Team 3 <span class="vs">VS</span> Team 6</span></td>
-                <td><span class="matchup">Team 1 <span class="vs">VS</span> Team 4</span></td>
-                <td><span class="matchup">Team 2 <span class="vs">VS</span> Team 5</span></td>
-              </tr>
-              <tr>
-                <td class="date-cell">Apr 14</td>
-                <td><span class="matchup">Team 2 <span class="vs">VS</span> Team 6</span></td>
-                <td><span class="matchup">Team 1 <span class="vs">VS</span> Team 5</span></td>
-                <td><span class="matchup">Team 3 <span class="vs">VS</span> Team 4</span></td>
-              </tr>
-              <tr>
-                <td class="date-cell">Apr 21</td>
-                <td><span class="matchup">Team 1 <span class="vs">VS</span> Team 3</span></td>
-                <td><span class="matchup">Team 4 <span class="vs">VS</span> Team 6</span></td>
-                <td><span class="matchup">Team 2 <span class="vs">VS</span> Team 5</span></td>
-              </tr>
-              <tr>
-                <td class="date-cell">Apr 28</td>
-                <td><span class="matchup">Team 4 <span class="vs">VS</span> Team 5</span></td>
-                <td><span class="matchup">Team 2 <span class="vs">VS</span> Team 3</span></td>
-                <td><span class="matchup">Team 1 <span class="vs">VS</span> Team 6</span></td>
-              </tr>
-              <tr>
-                <td class="date-cell">May 5</td>
-                <td><span class="matchup">Team 2 <span class="vs">VS</span> Team 4</span></td>
-                <td><span class="matchup">Team 3 <span class="vs">VS</span> Team 5</span></td>
-                <td><span class="matchup">Team 1 <span class="vs">VS</span> Team 6</span></td>
-              </tr>
-              <tr>
-                <td class="date-cell">May 12</td>
-                <td><span class="matchup">Team 1 <span class="vs">VS</span> Team 5</span></td>
-                <td><span class="matchup">Team 2 <span class="vs">VS</span> Team 6</span></td>
-                <td><span class="matchup">Team 3 <span class="vs">VS</span> Team 4</span></td>
-              </tr>
-              <tr>
-                <td class="date-cell">May 19</td>
-                <td><span class="matchup">Team 3 <span class="vs">VS</span> Team 6</span></td>
-                <td><span class="matchup">Team 1 <span class="vs">VS</span> Team 2</span></td>
-                <td><span class="matchup">Team 4 <span class="vs">VS</span> Team 5</span></td>
-              </tr>
-              <tr>
-                <td class="date-cell">May 26</td>
-                <td>&mdash;</td>
-                <td>Playoffs &mdash; TBD</td>
-                <td>&mdash;</td>
-              </tr>
-            </tbody>
-          </table>
+    <section class="section">
+      <div class="section-head">
+        <h2>Schedule</h2>
+        <p>March 31 to May 26, 2026</p>
+      </div>
+      <div class="weeks" id="weeks">
+        <p class="status">Loading schedule…</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Game Format</h2>
+        <p>Three 14-minute games per match &middot; 1 point per game won</p>
+      </div>
+      <div class="format-grid">
+        <div class="format">
+          <span class="big" aria-hidden="true">1</span>
+          <span>Game 1</span>
+          <h3>Regular</h3>
+          <p>Standard back-and-forth basketball.</p>
+        </div>
+        <div class="format">
+          <span class="big" aria-hidden="true">2</span>
+          <span>Game 2</span>
+          <h3>FIBA Rules</h3>
+          <p>No checking the ball in after scoring. Regular back-and-forth play.</p>
+        </div>
+        <div class="format">
+          <span class="big" aria-hidden="true">3</span>
+          <span>Game 3</span>
+          <h3>Make-It-Take-It</h3>
+          <p>The scoring team retains possession after each made basket.</p>
         </div>
       </div>
     </section>
 
-    <!-- Game Format -->
-    <section>
+    <section class="section">
+      <div class="section-head">
+        <h2>League Rules</h2>
+      </div>
       <div class="card">
-        <p class="section-label">Game Format</p>
-        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.25rem; line-height:1.6;">
-          Three 14-minute games per match. Each game victory is worth one point toward standings.
-        </p>
-        <div class="game-format-grid">
-          <div class="game-block">
-            <p class="game-number">Game 1</p>
-            <h3>Regular</h3>
-            <p>Standard back-and-forth basketball.</p>
-          </div>
-          <div class="game-block">
-            <p class="game-number">Game 2</p>
-            <h3>FIBA Rules</h3>
-            <p>No checking the ball in after scoring. Regular back-and-forth play.</p>
-          </div>
-          <div class="game-block">
-            <p class="game-number">Game 3</p>
-            <h3>Make-It-Take-It</h3>
-            <p>The scoring team retains possession after each made basket.</p>
-          </div>
-        </div>
+        <ol class="rules">
+          <li><span><strong>Scoring is by twos and threes.</strong></span></li>
+          <li><span><strong>Clear it past the arc.</strong> All changes of possession must be taken back beyond the three-point line.</span></li>
+          <li><span><strong>Opening possession.</strong> Shoot a three-pointer to start the first game. After that, the losing team from the previous game starts with possession for the new game.</span></li>
+          <li><span><strong>Play all three.</strong> All three games are played per match regardless of score.</span></li>
+          <li><span><strong>Final minute.</strong> With one minute left on the clock, if the lead is ten points or less, any foul results in a stopped clock and two automatic free throws. If fouled on a made basket, no free throws are awarded. No rebound needed: the opposing team automatically gets possession after both free throws and takes it out on top. The clock restarts when the opposing team inbounds the ball.</span></li>
+          <li><span><strong>Every game counts.</strong> The accumulation of points determines the playoff bracket. Wins matter throughout seasonal play.</span></li>
+        </ol>
       </div>
     </section>
-
-    <!-- Rules -->
-    <section>
-      <div class="card">
-        <p class="section-label">League Rules</p>
-        <ul class="rules-list">
-          <li>Scoring is by twos and threes.</li>
-          <li>All changes of possession must be taken back beyond the three-point line.</li>
-          <li>Shoot a three-pointer to start the first game. After that, the losing team from the previous game starts with possession for the new game.</li>
-          <li>All three games are played per match regardless of score.</li>
-          <li>With one minute left on the clock, if the lead is ten points or less, any foul results in a stopped clock and two automatic free throws. If fouled on a made basket, no free throws are awarded. No rebound needed — the opposing team automatically gets possession after both free throws and takes it out on top. The clock restarts when the opposing team inbounds the ball.</li>
-          <li>The accumulation of points determines the playoff bracket. Wins matter throughout seasonal play.</li>
-        </ul>
-      </div>
-    </section>
-
-    <footer>
-      Remnant Fellowship Basketball League &middot; Spring 2026
-      <div class="theme-bar" id="theme-bar"></div>
-    </footer>
   </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Remnant Fellowship Basketball League &middot; Spring 2026</span>
+      <div class="theme-bar" id="theme-bar"></div>
+    </div>
+  </footer>
+
 <script src="theme.js"></script>
+<script src="league.js"></script>
+<script>
+  function side(team, wins, won, right) {
+    return `<span class="side${right ? ' right' : ''}${won ? ' won' : ''}">Team ${team}<em>${wins ?? ''}</em></span>`;
+  }
+
+  function renderGame(g) {
+    const time = `<time>${g.time} PM</time>`;
+    if (g.teamA == null || g.teamB == null) {
+      return `<div class="game tbd">${time}<span class="side">TBD</span><span class="vs">VS</span><span class="side right">TBD</span></div>`;
+    }
+    const done = isPlayed(g);
+    return `<div class="game${done ? '' : ' tbd'}">${time}`
+      + side(g.teamA, g.winsA, done && g.winsA > g.winsB, false)
+      + `<span class="vs">${done ? 'FINAL' : 'VS'}</span>`
+      + side(g.teamB, g.winsB, done && g.winsB > g.winsA, true)
+      + '</div>';
+  }
+
+  function renderSchedule({ games }) {
+    const weeks = [];
+    games.forEach(g => {
+      const last = weeks.at(-1);
+      if (last && last.date === g.date) last.games.push(g);
+      else weeks.push({ date: g.date, games: [g] });
+    });
+
+    document.getElementById('weeks').innerHTML = weeks.map((w, i) => {
+      const playoffs = w.games.every(g => g.teamA == null);
+      return `
+        <article class="week${playoffs ? ' playoffs' : ''}">
+          <div class="week-head">
+            <h3>${formatDate(w.date, { weekday: 'short', month: 'short', day: 'numeric' })}</h3>
+            <span>${playoffs ? 'Playoffs' : `Week ${i + 1}`}</span>
+          </div>
+          ${w.games.map(renderGame).join('')}
+        </article>`;
+    }).join('');
+  }
+
+  loadLeague().then(renderSchedule).catch(() => showError(document.getElementById('weeks'), 'the schedule'));
+</script>
 </body>
 </html>

@@ -1,81 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
   <meta charset="UTF-8" />
-  <title>RF Basketball – Teams</title>
+  <title>Teams · RF Basketball</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Team rosters for the Remnant Fellowship Basketball League." />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="/assets/images/favicon.ico">
 </head>
 <body>
-  <main>
-    <header>
-      <span class="eyebrow">Spring 2026 · Tuesdays</span>
-      <h1>Remnant Fellowship Basketball</h1>
-      <p class="subtitle">March 31 – May 26, 2026</p>
-    </header>
-
-    <nav>
-      <a href="index.html" class="active">Teams</a>
-      <a href="rules.html">Rules &amp; Schedule</a>
-      <a href="standings.html">Standings</a>
-      <span class="nav-break"></span>
-      <a href="feedback.html">Feedback</a>
-    </nav>
-
-    <div class="teams-grid" id="teams-grid">
-      <p style="color:var(--text-muted);text-align:center;padding:2rem;grid-column:1/-1;">Loading teams…</p>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">RFB</span>
+        <span class="brand-name">Remnant Fellowship<small>Basketball League</small></span>
+      </a>
+      <nav class="tabs" aria-label="Main">
+        <a href="index.html" aria-current="page">Teams</a>
+        <a href="standings.html">Standings</a>
+        <a href="rules.html">Schedule<span class="long"> &amp; Rules</span></a>
+        <a href="feedback.html">Feedback</a>
+      </nav>
     </div>
+  </header>
 
-    <footer>
-      Remnant Fellowship Basketball League &middot; Spring 2026
-      <div class="theme-bar" id="theme-bar"></div>
-    </footer>
+  <main class="wrap">
+    <section class="hero">
+      <span class="chip"><span class="dot"></span>Spring 2026 &middot; Final</span>
+      <h1>The <span class="outline">Teams</span></h1>
+      <p>Six teams, Tuesday nights, March 31 to May 26, 2026. Cards are ordered by final standings.</p>
+    </section>
+
+    <section class="section">
+      <div class="bento" id="teams">
+        <p class="status">Loading teams…</p>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Remnant Fellowship Basketball League &middot; Spring 2026</span>
+      <div class="theme-bar" id="theme-bar"></div>
+    </div>
+  </footer>
+
 <script src="theme.js"></script>
+<script src="league.js"></script>
 <script>
-  const TEAMS_JSON = 'data/teams.json';
-
-  function groupByTeam(data) {
-    return Object.fromEntries(data.teams.map(t => [String(t.team), t.players]));
+  function glance(table) {
+    const leaders = table.filter(r => r.rank === 1);
+    const next = table.find(r => r.rank > 1);
+    const names = leaders.map(r => `Team ${r.team}`).join(' and ');
+    const gap = next ? leaders[0].pts - next.pts : 0;
+    const summary = leaders.length > 1
+      ? `${names} finished tied at the top with ${leaders[0].pts} points.`
+      : `${names} finished first with ${leaders[0].pts} points${next ? `, ${gap} ahead of Team ${next.team}` : ''}.`;
+    return `
+      <aside class="glance">
+        <div>
+          <h2>Season wrap-up</h2>
+          <p>${summary} Next season's teams will show up here once rosters are set.</p>
+        </div>
+        <div class="links">
+          <a class="btn primary" href="standings.html">Final standings →</a>
+          <a class="btn" href="rules.html">Results &amp; schedule</a>
+        </div>
+      </aside>`;
   }
 
-  function renderTeams(teams) {
-    const params = new URLSearchParams(window.location.search);
-    const activeTeam = params.get('team');
+  function renderTeams({ teams, table }) {
+    const players = new Map(teams.map(t => [t.team, t.players]));
+    const active = new URLSearchParams(location.search).get('team');
 
-    const html = Object.keys(teams)
-      .sort((a, b) => Number(a) - Number(b))
-      .map(num => `
-        <div class="team-card${activeTeam === num ? ' active' : ''}" id="team-${num}">
-          <h2>Team ${num}</h2>
-          <ul>
-            ${teams[num].map(p => `<li>${p}</li>`).join('')}
+    document.getElementById('teams').innerHTML = table.map(r => {
+      const leader = r.rank === 1;
+      return `
+        <article class="team-card${leader ? ' leader' : ''}${active === String(r.team) ? ' active' : ''}" id="team-${r.team}">
+          <span class="watermark" aria-hidden="true">${String(r.team).padStart(2, '0')}</span>
+          <header>
+            <h2>Team ${r.team}</h2>
+            <div class="team-meta">
+              <span class="pill${leader ? ' gold' : ''}">${leader ? '★ ' : ''}${ordinal(r.rank)} place</span>
+              <span class="pill num">${r.pts} pts</span>
+              <span class="pill num">${r.w}–${r.l}${r.t ? `–${r.t}` : ''}</span>
+            </div>
+          </header>
+          <ul class="roster">
+            ${players.get(r.team).map(p => `<li><span class="avatar" aria-hidden="true">${initials(p)}</span>${p}</li>`).join('')}
           </ul>
-        </div>`)
-      .join('');
+          ${leader ? `<div class="leader-score"><strong class="num">${r.pts}</strong><span>points · season leader</span></div>` : ''}
+        </article>`;
+    }).join('') + glance(table);
 
-    document.getElementById('teams-grid').innerHTML = html;
-
-    if (activeTeam) {
-      const el = document.getElementById(`team-${activeTeam}`);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    if (active) document.getElementById(`team-${active}`)?.scrollIntoView({ block: 'center' });
   }
 
-  async function loadTeams() {
-    try {
-      const res = await fetch(TEAMS_JSON, { cache: 'no-cache' });
-      if (!res.ok) throw new Error(res.status);
-      renderTeams(groupByTeam(await res.json()));
-    } catch {
-      document.getElementById('teams-grid').innerHTML =
-        '<p style="color:#f87171;text-align:center;grid-column:1/-1;padding:2rem;">Failed to load team data. Please try again.</p>';
-    }
-  }
-
-  loadTeams();
+  loadLeague().then(renderTeams).catch(() => showError(document.getElementById('teams'), 'teams'));
 </script>
 </body>
 </html>

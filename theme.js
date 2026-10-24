@@ -68,16 +68,8 @@ function applyTheme(theme) {
   root.style.setProperty('--accent', theme.accent);
   root.style.setProperty('--bg-base', theme.bgBase);
   root.style.setProperty('--bg-orb-2', theme.bgOrb2);
-  root.style.setProperty('--border-accent', `rgba(${hexToRgb(theme.primary)}, 0.35)`);
-  root.style.setProperty('--shadow-glow', `0 0 40px rgba(${hexToRgb(theme.primary)}, 0.25)`);
-
-  const primaryRgb = hexToRgb(theme.primary);
-  const accentRgb = hexToRgb(theme.accent);
-  document.body.style.background = `
-    radial-gradient(circle at 20% 0%, rgba(${primaryRgb}, 0.12), transparent 40%),
-    radial-gradient(circle at 80% 100%, rgba(${accentRgb}, 0.08), transparent 50%),
-    ${theme.bgBase}
-  `;
+  root.style.setProperty('--primary-rgb', hexToRgb(theme.primary));
+  root.style.setProperty('--accent-rgb', hexToRgb(theme.accent));
 
   document.querySelectorAll('.theme-bar-swatch').forEach(el => {
     el.classList.toggle('active', el.dataset.themeId === theme.id);
