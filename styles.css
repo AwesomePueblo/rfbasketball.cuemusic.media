@@ -410,16 +410,6 @@ a { color: inherit; }
   box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.25);
 }
 
-@media (max-width: 900px) {
-  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .glance { grid-column: auto; }
-}
-
-@media (max-width: 600px) {
-  .bento { grid-template-columns: 1fr; }
-  .team-card.leader { grid-column: auto; }
-  .team-card.leader .roster { grid-template-columns: 1fr; }
-}
 
 .glance {
   grid-column: span 2;
@@ -465,6 +455,19 @@ a { color: inherit; }
 }
 
 .btn.primary:hover { background: var(--primary-light); }
+
+/* Breakpoints come after .glance so they override its span. */
+@media (max-width: 900px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .glance { grid-column: auto; }
+}
+
+@media (max-width: 600px) {
+  .bento { grid-template-columns: minmax(0, 1fr); }
+  .team-card.leader,
+  .glance { grid-column: auto; }
+  .team-card.leader .roster { grid-template-columns: 1fr; }
+}
 
 /* ─── Standings ─────────────────────────────────────────────────── */
 .spotlight {
