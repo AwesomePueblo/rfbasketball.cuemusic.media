@@ -35,25 +35,10 @@
   </main>
 <script src="theme.js"></script>
 <script>
-  const TEAMS_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTa_fazSKi7Iz3HCDE1VOgks8wel2sWC1ZLbzTw9crZFTTcaPZ1SkqiWswxX-ZzK0b1Za8xh9okRYq5/pub?output=csv';
+  const TEAMS_JSON = 'data/teams.json';
 
-  function parseCSV(text) {
-    const [headerLine, ...rows] = text.trim().split('\n');
-    const headers = headerLine.split(',').map(h => h.trim());
-    return rows.map(row => {
-      const values = row.split(',').map(v => v.trim());
-      return Object.fromEntries(headers.map((h, i) => [h, values[i] ?? '']));
-    });
-  }
-
-  function groupByTeam(rows) {
-    const teams = {};
-    rows.forEach(row => {
-      const num = row['Team Number'];
-      if (!teams[num]) teams[num] = [];
-      teams[num].push(row['Player Names']);
-    });
-    return teams;
+  function groupByTeam(data) {
+    return Object.fromEntries(data.teams.map(t => [String(t.team), t.players]));
   }
 
   function renderTeams(teams) {
@@ -81,9 +66,9 @@
 
   async function loadTeams() {
     try {
-      const res = await fetch(TEAMS_CSV);
-      const text = await res.text();
-      renderTeams(groupByTeam(parseCSV(text)));
+      const res = await fetch(TEAMS_JSON, { cache: 'no-cache' });
+      if (!res.ok) throw new Error(res.status);
+      renderTeams(groupByTeam(await res.json()));
     } catch {
       document.getElementById('teams-grid').innerHTML =
         '<p style="color:#f87171;text-align:center;grid-column:1/-1;padding:2rem;">Failed to load team data. Please try again.</p>';

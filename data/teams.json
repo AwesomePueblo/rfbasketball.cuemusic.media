@@ -1,0 +1,62 @@
+{
+  "season": "Spring 2026",
+  "teams": [
+    {
+      "team": 1,
+      "players": [
+        "Camren McNeal",
+        "Luke Higgins",
+        "Harrison Moore",
+        "Durville Patton"
+      ]
+    },
+    {
+      "team": 2,
+      "players": [
+        "Joel Fischer",
+        "Max Petralito",
+        "Seth Duncan",
+        "Teagan Shelhamer"
+      ]
+    },
+    {
+      "team": 3,
+      "players": [
+        "Aiden Martin",
+        "Jojo Cormier",
+        "Zachary McDonald",
+        "Jeff Swindell",
+        "Gary Hahn"
+      ]
+    },
+    {
+      "team": 4,
+      "players": [
+        "Jay Chauff",
+        "Lane Shepherd",
+        "Kevin Spencer",
+        "Mason McDonald"
+      ]
+    },
+    {
+      "team": 5,
+      "players": [
+        "Asher Hahn",
+        "William Walters",
+        "Hudson Barnhart",
+        "Bradyn Herbst",
+        "Elias Pacheco"
+      ]
+    },
+    {
+      "team": 6,
+      "players": [
+        "Xavier Sims",
+        "Derrick Jones",
+        "Carson Inskeep",
+        "Timothy Fischer",
+        "Patrick Stites"
+      ]
+    }
+  ]
+}

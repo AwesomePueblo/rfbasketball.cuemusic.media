@@ -71,30 +71,19 @@
   </main>
 <script src="theme.js"></script>
 <script>
-  const GAMES_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTa_fazSKi7Iz3HCDE1VOgks8wel2sWC1ZLbzTw9crZFTTcaPZ1SkqiWswxX-ZzK0b1Za8xh9okRYq5/pub?gid=2135617993&single=true&output=csv';
+  const GAMES_JSON = 'data/games.json';
   const NUM_TEAMS = 6;
 
-  function parseCSV(text) {
-    const [headerLine, ...rows] = text.trim().split('\n');
-    const headers = headerLine.split(',').map(h => h.trim());
-    return rows.map(row => {
-      const values = row.split(',').map(v => v.trim());
-      return Object.fromEntries(headers.map((h, i) => [h, values[i] ?? '']));
-    });
-  }
-
   function completedGames(games) {
-    return games.filter(g => g['Team A Wins'] !== '' && !isNaN(parseInt(g['Team A'])));
+    return games.filter(g => g.winsA != null && g.winsB != null && g.teamA != null && g.teamB != null);
   }
 
   function calcPoints(games) {
     const pts = {};
     for (let i = 1; i <= NUM_TEAMS; i++) pts[i] = 0;
     completedGames(games).forEach(g => {
-      const a = parseInt(g['Team A']);
-      const b = parseInt(g['Team B']);
-      pts[a] += parseInt(g['Team A Wins']);
-      pts[b] += parseInt(g['Team B Wins']);
+      pts[g.teamA] += g.winsA;
+      pts[g.teamB] += g.winsB;
     });
     return pts;
   }
@@ -103,10 +92,10 @@
     const h2h = {};
     for (let i = 1; i <= NUM_TEAMS; i++) h2h[i] = {};
     completedGames(games).forEach(g => {
-      const a = parseInt(g['Team A']);
-      const b = parseInt(g['Team B']);
-      const wa = parseInt(g['Team A Wins']);
-      const wb = parseInt(g['Team B Wins']);
+      const a = g.teamA;
+      const b = g.teamB;
+      const wa = g.winsA;
+      const wb = g.winsB;
       if (!h2h[a][b]) h2h[a][b] = { myWins: 0, theirWins: 0 };
       if (!h2h[b][a]) h2h[b][a] = { myWins: 0, theirWins: 0 };
       h2h[a][b].myWins += wa;
@@ -165,19 +154,19 @@
     const done = completedGames(games);
     if (!done.length) return '';
     const last = done[done.length - 1];
-    return new Date(last['Date']).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    return new Date(`${last.date}T00:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   }
 
   async function loadStandings() {
     try {
-      const res = await fetch(GAMES_CSV);
-      const text = await res.text();
-      const games = parseCSV(text);
+      const res = await fetch(GAMES_JSON, { cache: 'no-cache' });
+      if (!res.ok) throw new Error(res.status);
+      const { games } = await res.json();
       renderLeaderboard(calcPoints(games));
       renderMatrix(calcH2H(games));
       const updated = getLastUpdated(games);
       if (updated) {
-        document.getElementById('last-updated').textContent = `Live from Google Sheets · ${updated}`;
+        document.getElementById('last-updated').textContent = `Updated ${updated}`;
       }
     } catch {
       document.getElementById('points-grid').innerHTML =
